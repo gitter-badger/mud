@@ -11,9 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150620151511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "people", force: :cascade do |t|
+    t.string   "email",                           null: false
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.string   "activation_state"
+    t.string   "activation_token"
+    t.datetime "activation_token_expires_at"
+  end
+
+  add_index "people", ["activation_token"], name: "index_people_on_activation_token", using: :btree
+  add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
+  add_index "people", ["remember_me_token"], name: "index_people_on_remember_me_token", using: :btree
+  add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", using: :btree
 
 end
