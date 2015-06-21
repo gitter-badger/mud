@@ -1,24 +1,35 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.2.2
+  - 2.2.2
+
 before_install:
-- gem install bundler
-- rm ${BUNDLE_GEMFILE}.lock
-- gem update --system
-- gem --version
+  - gem install bundler
+  - rm ${BUNDLE_GEMFILE}.lock
+  - gem update --system
+  - gem --version
+
+sudo: required
 services:
-- redis-server
+  - redis-server
 addons:
   postgresql: 9.3
+
 before_script:
-- psql -c 'create database mud_test;' -U postgres
+  - psql -c 'create database mud_test;' -U postgres
 script: bundle exec rake test
+
 notifications:
+  email: false
   hipchat:
     rooms:
       secure: QrwVGVkXGpdORHUd9mrcJJ7BbC5aUuHe2BVFLv89vc6G+P+1nOp7sAhpA+vnpy6q+6aE0Z9Z7j1ns56wd0E4oINoHniPh4pey5/bPVRaje02UHHN9ZOTPKpRfeDoX7lJiZsgc2LuP/AiKT4r/uDKK2L3/50FXZ4vQ52l2ekVLhxe9hACBaF1OEwNRV5JnfmTPEubbjrnx/2w1fckN7Bwsxh6s11WPSkj7i/fsIDjC7qmZjWD6/2HNmxBvFZaWUGqIvF+60GbPw8AN47T1/gCY38g4AgMRAd2cG/QMaTIlIxqP39NA7/0KnByq+6jF981x2CkoeYXsa55MD3KRIk3GyrGvtWDi8BqrUZSuMORws8kL+OXAYPDUd6k/8/08dig8d2G0njP0q/O1B0eGUIBELRzSvCfPC6hbXcOHGzEFKbfmzy5Jh7Twgqx+PiJ9kGzzNFOyh5VJyAxp2iTv6oyhE0pH9Nw2R33qNioomHhol9Bpas2/OrM4N4XkwakJvUFe+qPy6BXljpuXfRqUXOMf/PDHgbDf+o1NlCY0fKdlDG09sjpBZek/34Gb+ZBI4qKAtZAyspXNF8WNtjUEwaJCXg5fVy/k3W63eLU/dW+GAqWda0SVL9SMWf9AnOJSSmlMYIQ3tHBp24d8b4EU6oUhm6+GbN5HTI5fescksTRkXc=
-    notify: true
+    template:
+      - "%{repository} (%{commit}) @%{author} :: %{message}"
+      - "Build details : %{build_url}"
+    on_success: change
+    on_failure: always
+
 deploy:
   provider: heroku
   api_key:
@@ -27,6 +38,5 @@ deploy:
   on:
     repo: grox-org/mud
   run:
-  - rake db:migrate
-  - restart
-  - rake cleanup
+    - rake db:migrate
+    - restart
