@@ -1,23 +1,23 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.2.2
+- 2.2.2
 before_install:
-  - gem install bundler
-  - rm ${BUNDLE_GEMFILE}.lock
-  - gem update --system
-  - gem --version
+- gem install bundler
+- rm ${BUNDLE_GEMFILE}.lock
+- gem update --system
+- gem --version
 services:
-  - redis-server
+- redis-server
 addons:
   postgresql: 9.3
 before_script:
-  - psql -c 'create database mud_test;' -U postgres
+- psql -c 'create database mud_test;' -U postgres
 script: bundle exec rake test
 notifications:
   hipchat:
     rooms:
-      secure: jCllFzOqfv5ng3ROz0Ft0SoZqkGDyg0TZPBAca7usUrXRXQCeQSfak8V3fkPskxSOii2I8CDcm4ubC474f8qVhx2UhndXBX//LZIg/hi8mmSB0iGaRpzTM/5XfgBHz38gv7+HXlSKZ69qZvXgGlVxD0YKVR6s5cn+xov7gllCtbQXORMU7NlxjE1AWGHKxWdwfpHjNQma85ylyhd1Eos+3jYtIKr6gxthZ9F7yjGs/cCqoKLOkIHwBZoxZry55h+8Vh6f5H6iJGDmQTe0icM4CTH8Zq5i4lAsekDauQN+7ra3NMk2fuib4mKGyPHLrvkO9lW2QHLUz+c7ykyQFpITkulo6MBfHIj+gEWE3V0Q/I1VUFkzwRI1MH4RkzmqyJhbCZgzQp08943W/vsGQ8f0HbyuYCwOM4yC5nKHXg0D1ZG/4skip0+psu7IIqYMTD4FiGgWNMmU363wV+Zv2OQHp/mzweplbh2yyaBx55NQYyxYlyCKC5jz0WSnC1lUiQP3UTcYbuJ5YplydMma6jvuFMeOEBvPdxugz1MKURwZGzjCQD2nXcmbHmsMo9TdreddBiv2WKKwkQXEDolWh1dIJs64ongrPFc9ZQGb2VBF8xOHcfsfpWT82QWmVIVyFdew5Bl8Sz/sbgNkNHH9GTCFypywqo9XarHAkVeWujQprU=
+      secure: QrwVGVkXGpdORHUd9mrcJJ7BbC5aUuHe2BVFLv89vc6G+P+1nOp7sAhpA+vnpy6q+6aE0Z9Z7j1ns56wd0E4oINoHniPh4pey5/bPVRaje02UHHN9ZOTPKpRfeDoX7lJiZsgc2LuP/AiKT4r/uDKK2L3/50FXZ4vQ52l2ekVLhxe9hACBaF1OEwNRV5JnfmTPEubbjrnx/2w1fckN7Bwsxh6s11WPSkj7i/fsIDjC7qmZjWD6/2HNmxBvFZaWUGqIvF+60GbPw8AN47T1/gCY38g4AgMRAd2cG/QMaTIlIxqP39NA7/0KnByq+6jF981x2CkoeYXsa55MD3KRIk3GyrGvtWDi8BqrUZSuMORws8kL+OXAYPDUd6k/8/08dig8d2G0njP0q/O1B0eGUIBELRzSvCfPC6hbXcOHGzEFKbfmzy5Jh7Twgqx+PiJ9kGzzNFOyh5VJyAxp2iTv6oyhE0pH9Nw2R33qNioomHhol9Bpas2/OrM4N4XkwakJvUFe+qPy6BXljpuXfRqUXOMf/PDHgbDf+o1NlCY0fKdlDG09sjpBZek/34Gb+ZBI4qKAtZAyspXNF8WNtjUEwaJCXg5fVy/k3W63eLU/dW+GAqWda0SVL9SMWf9AnOJSSmlMYIQ3tHBp24d8b4EU6oUhm6+GbN5HTI5fescksTRkXc=
     notify: true
 deploy:
   provider: heroku
