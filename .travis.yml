@@ -1,18 +1,22 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.2.2
+- 2.2.2
 before_install:
-  - gem install bundler
-  - gem update --system
-  - gem --version
-notifications:
-  hipchat: 6ahJuyZBj0QLlrVzAE9n6QCeHuthe38p1sRGiZGV@1649695
+- gem install bundler
+- rm ${BUNDLE_GEMFILE}.lock
+- gem update --system
+- gem --version
 services:
-  - redis
-  - sidekiq
+- redis
 addons:
   postgresql: 9.4.4
+script: bundle exec rake test
+notifications:
+  hipchat:
+    rooms:
+      secure: jCllFzOqfv5ng3ROz0Ft0SoZqkGDyg0TZPBAca7usUrXRXQCeQSfak8V3fkPskxSOii2I8CDcm4ubC474f8qVhx2UhndXBX//LZIg/hi8mmSB0iGaRpzTM/5XfgBHz38gv7+HXlSKZ69qZvXgGlVxD0YKVR6s5cn+xov7gllCtbQXORMU7NlxjE1AWGHKxWdwfpHjNQma85ylyhd1Eos+3jYtIKr6gxthZ9F7yjGs/cCqoKLOkIHwBZoxZry55h+8Vh6f5H6iJGDmQTe0icM4CTH8Zq5i4lAsekDauQN+7ra3NMk2fuib4mKGyPHLrvkO9lW2QHLUz+c7ykyQFpITkulo6MBfHIj+gEWE3V0Q/I1VUFkzwRI1MH4RkzmqyJhbCZgzQp08943W/vsGQ8f0HbyuYCwOM4yC5nKHXg0D1ZG/4skip0+psu7IIqYMTD4FiGgWNMmU363wV+Zv2OQHp/mzweplbh2yyaBx55NQYyxYlyCKC5jz0WSnC1lUiQP3UTcYbuJ5YplydMma6jvuFMeOEBvPdxugz1MKURwZGzjCQD2nXcmbHmsMo9TdreddBiv2WKKwkQXEDolWh1dIJs64ongrPFc9ZQGb2VBF8xOHcfsfpWT82QWmVIVyFdew5Bl8Sz/sbgNkNHH9GTCFypywqo9XarHAkVeWujQprU=
+    notify: true
 deploy:
   provider: heroku
   api_key:
@@ -20,3 +24,7 @@ deploy:
   app: grox-mud
   on:
     repo: grox-org/mud
+  run:
+  - rake db:migrate
+  - restart
+  - rake cleanup

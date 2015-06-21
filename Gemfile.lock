@@ -226,6 +226,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.2)
   rails_12factor
+  rake
   redis
   rollbar (~> 1.2.7)
   sass-rails (~> 5.0)
