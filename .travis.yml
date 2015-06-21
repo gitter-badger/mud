@@ -1,16 +1,16 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.2.2
+  - 2.2.2
 before_install:
-- gem install bundler
-- rm ${BUNDLE_GEMFILE}.lock
-- gem update --system
-- gem --version
+  - gem install bundler
+  - rm ${BUNDLE_GEMFILE}.lock
+  - gem update --system
+  - gem --version
 services:
-- redis
+  - redis-server
 addons:
-  postgresql: 9.4.4
+  postgresql: 9.3
 script: bundle exec rake test
 notifications:
   hipchat:
