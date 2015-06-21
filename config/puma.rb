@@ -10,7 +10,4 @@ environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
   ActiveRecord::Base.establish_connection
-  if defined?(Sidekiq)
-    Sidekiq.redis = ENV["REDIS_URL"] || "redis://127.0.0.1:6379"
-  end
 end
