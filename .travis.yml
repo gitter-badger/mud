@@ -11,6 +11,8 @@ services:
   - redis-server
 addons:
   postgresql: 9.3
+before_script:
+  - psql -c 'create database mud_test;' -U postgres
 script: bundle exec rake test
 notifications:
   hipchat:
