@@ -1,43 +1,22 @@
 language: ruby
-sudo: false
-script: 'ci/travis.rb'
-before_install:
-  - gem install bundler
-  - "rm ${BUNDLE_GEMFILE}.lock"
-before_script:
-  - bundle update
 cache: bundler
-env:
-  global:
-    - JRUBY_OPTS='-J-Xmx1024M'
-  matrix:
-    - "GEM=railties"
-    - "GEM=ap"
-    - "GEM=am,amo,as,av,aj"
-    - "GEM=ar:mysql"
-    - "GEM=ar:mysql2"
-    - "GEM=ar:sqlite3"
-    - "GEM=ar:postgresql"
-    - "GEM=aj:integration"
-    - "GEM=guides"
 rvm:
   - 2.2.2
-  - ruby-head
-  - rbx-2
-  - jruby-head
-matrix:
-  allow_failures:
-    - env: "GEM=ar:mysql"
-    - rvm: ruby-head
-    - rvm: rbx-2
-    - rvm: jruby-head
-  fast_finish: true
+before_install:
+  - gem install bundler
+  - gem update --system
+  - gem --version
 notifications:
   hipchat: 6ahJuyZBj0QLlrVzAE9n6QCeHuthe38p1sRGiZGV@1649695
-bundler_args: --without test --jobs 3 --retry 3
 services:
-  - memcached
   - redis
-  - rabbitmq
+  - sidekiq
 addons:
-  postgresql: "9.4.4"
+  postgresql: 9.4.4
+deploy:
+  provider: heroku
+  api_key:
+    secure: HrfpZ3H3MJTSFTw1P3e4paeeEJUzlONxnP5cOUJ/Cu4C8vFaz6K7WYscZBzVGfiJYJfNv6GEPHBs77JjhKn2RYmxQ0NYdxoRhvUGKwahgs0XOEXa4LQps6hRnxV1NYFvut55CaO2fU4aLL6Qi+K1DQo+HmcVAHAtEXIpoIZ9Vyayf5wo3wQgNJel99hcaiJdOC73XTz+i2Qatoy4UTmldaNtSpt/UX29rQnWOiG/FAPk20nx9LJPpZLYbhMx24K4V/+F59U/7/Tc1nv6QOP492R1GZ1i6ey4dUROzsgzHaDs7TDV/gZubEXu+Mn7YXkRdnGR4tDff/Zz55DhMUpLFz49ry8k69GplWK5urxFcgDMKhZ8Gvrk+S6twGM9aOm9vD0Tf4yQQLUiv19i41IEhfSZVSHTiJNJ3dkUGeRMw7TmfTvIJhNSZRT54sr+1Ko+Baop5jvp5/5iGXmBednwgA8klBbxm6LoFDC4u31FRt8mQrVx5XrBH3FyprRotmPXPmLOpg2YMcXB2tiws4iVI4o7SDUMmPrcBM1CpRNQrzA4Gf06wFkvu+PBYsawrL1a261pQbNghsyVnVnxvZ5EplXvCnTe4CjisNevx22Jss0T0LCRqjxfRFw1xqXfhjdnZTQZowLghP7ZSnaHCTRjf2M5X+ZjbqIo3lKFz3qqao4=
+  app: grox-mud
+  on:
+    repo: grox-org/mud
