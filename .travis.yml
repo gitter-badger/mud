@@ -17,10 +17,6 @@ addons:
 before_script:
 - psql -c 'create database mud_test;' -U postgres
 script: bundle exec rake test
-notifications:
-  email: false
-  webhooks:
-    secure: RUOUHxIbNd6fxr4KcFYlb16sHdVmcWwarI9otM0v/ssQukVMAdOGy6IDO3FGSzKQnh727VEAbKCTnXVS6DGXnA81EYeE/T/Lxe1kWUr2NuKdvg3OuQDtt0vLALhT/PYVGynDEANkq3OeQnl/Ll0cCxGYPyadC3tOYlfFJSR3wIP0j1ToA5WT4UP9Bhn6agnkGqSDxXe6zGo/+xGDK4B2JqBhqcfppukuWOBlMtB7D9SkDy8Cud0CfqRMKBdFleI1KEdVyVRSv9ZHA0ilPQ+TX2QW3TefwPm4K9QtGGk2MxTkTJOXNewFedOWBzNUvemjOXzSjwkCauHUzXxSGWLsB5aheKhr06EMHCsSi8J2i+wp+3m/seDrNP8jNnbjk7k5U22VJECrPEmTZOuG9mOB0EaNWr9Sht1BVoAycjX5p9m3x/ebFQ2gJEjJi6I1oRCJucIRmiejuUbSWTuCjBEixHoz7BVXFwDj8vdKb1Ut1WfAUlt3/3+9jiaNZ90SEBXxkNAU/LaY6yrL5uNFBNXMrr038kDs3UQgi7t74jgpbjv08MJLRH6kxPCI7Gzu70FAQ96x0+aBE7rhD2h40zifsFjEIjtJBjd2GoLEZxP+mYLqqncsd2xWGyM9+kqlg02vAG5/B1TJ+p1VIVVnsfrLGsQeWbwCmK7eLEfyNX5UHK8=
 deploy:
   provider: heroku
   api_key:
@@ -31,3 +27,7 @@ deploy:
   run:
   - rake db:migrate
   - restart
+notifications:
+  hipchat:
+    rooms:
+      secure: UIuLr+WQxPvxM+MoipUjn5Tv5aFZkjw4KUZX5dEvxNjBB+wd9Ay+xIKRyYHispb4ZXSIFn/lCgGhWEZXObBFGu/1mNFnhHStbDFb3JRuKIdTWE9dIQ1/XoWSs/Uv810qP69T0seLoWgjb56EsAHZcAUJAHb92D4UbXP4p62RDKZyakjjuSV/SGACfaY50Brpvsx4Q5sGZbsNnYN3qvrlUy3aHsxl2ll8N59QMCaanj1jlVa/KjQWqLKbRAmvHqRMLZrNztcuFnvZ+SIEQg2/9rUR5G6MSM0exHGHth2GeJH8F0Wfh5XbHXHch/xMNkIml86Ohh2Ou8LQF88STeAaqGw77d9XRYWWfVG6JYPv9bZ2/qKKPEi3e/DvJGjQgweiBR+Z7xDe5+5HlQ4AlFSRjiX0IUtHdoYaVi9NYozDCJPwYDWKjahKGcV9st70CcNXRM/W7O62MxPdaLb9bRtOsdyW56KWbQfdXBgRCqeKTxULuGc1W3oh8J2E8eaUuBLH8GApJHL8z+ioWk2hVLKnGiyZs2tXY4u9rmQKf5KUxifCePkThWrH/uFMKCAL9yDmqCe1cdOCKohfsWKcBtxQNjFoa+wUDGDDs85vxkeqlqlFXWh4rcC+H/cr3cQ1m17qpNCYpY67CTfrFLMb2S6shuoFTZKeZxLgjzhXYPydrJw=
