@@ -38,11 +38,9 @@ gem 'puma'
 # Heroku specific configuration tweaks
 gem 'rails_12factor', group: :production
 
-# Use Websockets for chat
-gem 'websocket-rails'
-
 # Use Sidekiq for processing backend jobs
 gem 'sidekiq'
+gem 'sinatra', :require => nil
 
 # Use Sucker Punch for asynchronous job execution
 gem 'sucker_punch'
