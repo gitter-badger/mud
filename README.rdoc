@@ -4,4 +4,6 @@
 
 == README
 
+{<img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/grox-org/mud">}[https://gitter.im/grox-org/mud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge]
+
 Just kidding...don't actually read this file.
